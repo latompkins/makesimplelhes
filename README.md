@@ -75,9 +75,9 @@ export PYTHONDIR=$SOFTWARE_HOME/Python-3.9.10/install
 PATH=$PYTHONDIR/bin:$PATH
 LD_LIBRARY_PATH=$PYTHONDIR/lib:$LD_LIBRARY_PATH
 ```
-Now you should be able to follow the steps above for Running MG5.  It may tell you that you need to 
+Now you should be able to follow the steps above for Running MG5.  It may tell you that you need to install six.  If so follow the instructions on the command line.  
 
-Full set of steps after having untarred MG5:
+As an example, the full set of steps after having untarred MG5, if you need to install six are:
 ```
 export SOFTWARE_HOME=/sdf/group/ldmx/software
 export PYTHONDIR=$SOFTWARE_HOME/Python-3.9.10/install
@@ -91,5 +91,17 @@ cd test_making_lhe
 MG5_aMC>import model SM_Ap_Rho_Pi
 MG5_aMC>convert model /sdf/home/l/laurenat/sw/MG5_aMC_v3_5_0/models/SM_Ap_Rho_Pi
 MG5_aMC>import model SM_Ap_Rho_Pi
+```
+### Next time you log in
 
+For the following first four lines can go into a .bashrc file or .bash_profile file.
+
+```
+export SOFTWARE_HOME=/sdf/group/ldmx/software
+export PYTHONDIR=$SOFTWARE_HOME/Python-3.9.10/install
+PATH=$PYTHONDIR/bin:$PATH
+LD_LIBRARY_PATH=$PYTHONDIR/lib:$LD_LIBRARY_PATH
+cd ~/sw/test_making_lhe
+./../MG5_aMC_v3_5_0/bin/mg5_aMC 
+```
 
