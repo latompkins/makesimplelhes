@@ -1,7 +1,7 @@
 # Instructions to produce SIMP LHEs
 
 ## Download & install MG5_aMC@NLO
-- Download from https://launchpad.net/mg5amcnlo (recommend MG5 2.5.x since I haven't tested anything >2.5.3)
+- Download from https://launchpad.net/mg5amcnlo (recommend MG5 2.5.x since I haven't tested anything >2.5.3; LT UPDATE 6/8/2023 -- testing with MG3.5)
 - Installation should just involve unzipping download in desired dir
 
 ## SIMP model
@@ -52,4 +52,56 @@ Once you are done editing run & param cards, you can hit enter and MG5 should st
 
 ### Check output
 When MG5 is done, your output will be inside of `TEST_SIMP_GEN/Events/run_01/unweighted_events.lhe.gz`
+
+
+# Instructions for running at SDF at SLAC
+
+## Login and setup
+
+### Log into SDF
+[SDF](https://sdf.slac.stanford.edu/public/doc/#/ "SDF Docs") is a slac computing system which has a high capacity batch system.  You need to use your SLAC Windows account to access.  It is *not* the same as your SLAC unix account. 
+``` 
+ssh -Y WINUSERNAME@sdf.slac.stanford.edu
+```
+
+### Setting up necessary software
+
+Create a software directory, e.g. ```$HOME/sw```, and follow the steps above to download and install MG5. Then follow the steps under heading "SIMP Model" above.
+
+Setup python 3.9:
+```
+export SOFTWARE_HOME=/sdf/group/ldmx/software
+export PYTHONDIR=$SOFTWARE_HOME/Python-3.9.10/install
+PATH=$PYTHONDIR/bin:$PATH
+LD_LIBRARY_PATH=$PYTHONDIR/lib:$LD_LIBRARY_PATH
+```
+Now you should be able to follow the steps above for Running MG5.  It may tell you that you need to install six.  If so follow the instructions on the command line.  
+
+As an example, the full set of steps after having untarred MG5, if you need to install six are:
+```
+export SOFTWARE_HOME=/sdf/group/ldmx/software
+export PYTHONDIR=$SOFTWARE_HOME/Python-3.9.10/install
+PATH=$PYTHONDIR/bin:$PATH
+LD_LIBRARY_PATH=$PYTHONDIR/lib:$LD_LIBRARY_PATH
+cd ~/sw
+mkdir test_making_lhe
+python -m pip install six --user
+cd test_making_lhe
+./../MG5_aMC_v3_5_0/bin/mg5_aMC 
+MG5_aMC>import model SM_Ap_Rho_Pi
+MG5_aMC>convert model /sdf/home/l/laurenat/sw/MG5_aMC_v3_5_0/models/SM_Ap_Rho_Pi
+MG5_aMC>import model SM_Ap_Rho_Pi
+```
+### Next time you log in
+
+For the following first four lines can go into a .bashrc file or .bash_profile file.
+
+```
+export SOFTWARE_HOME=/sdf/group/ldmx/software
+export PYTHONDIR=$SOFTWARE_HOME/Python-3.9.10/install
+PATH=$PYTHONDIR/bin:$PATH
+LD_LIBRARY_PATH=$PYTHONDIR/lib:$LD_LIBRARY_PATH
+cd ~/sw/test_making_lhe
+./../MG5_aMC_v3_5_0/bin/mg5_aMC 
+```
 
